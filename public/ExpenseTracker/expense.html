@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <title>Item Lister</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .form-control {
+            border-radius: 10px;
+            border-color: #ced4da; 
+        }
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-dark {
+            background-color: #343a40;
+            border-color: #343a40;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn-dark:hover {
+            background-color: #1d2124;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn-info:hover {
+            background-color: #117a8b;
+        }
+        .list-group-item {
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Apply animation to buttons */
+        .animated-button {
+            animation: slideInFromLeft 0.5s ease forwards;
+        }
+
+        .animated-button-reverse {
+            animation: slideInFromRight 0.5s ease forwards;
+        }
+        .table {
+            table-layout: fixed;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .table thead th, .table tbody td {
+            padding: 8px; /* Adjust as needed */
+            text-align: center; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-inline mb-3">
+                    <div class="form-group mr-3">
+                        <label for="idk1" class="mr-2">Choose amount:</label>             
+                        <input type="number" id="idk1" class="form-control ml-2">
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="idk2" class="mr-2">Choose description:</label>
+                        <input type="text" id="idk2" class="form-control ml-2">
+                    </div>
+                    <div class="form-group mr-3">
+                        <label for="idk3" class="mr-2">Choose a category:</label>
+                        <select name="category" id="idk3" class="form-control ml-2">
+                            <option value="fuel">Fuel</option>
+                            <option value="food">Food</option>
+                            <option value="electricity">Electricity</option>
+                            <option value="movies">Movies</option>
+                            <option value="education">Education</option>
+                            <option value="transport">Transport</option>
+                            <option value="health">Health</option>
+                            <option value="salary">Salary</option>
+                        </select>
+                    </div>
+                    <div class="btn-group mb-3" role="group">
+                        <button onclick="tracker()" type="button" class="btn btn-dark">Add Expense</button>
+                    </div>
+                </form>
+                        <div class="btn-group mb-3" role="group">
+                            <button id="idk5" class="btn btn-primary mr-md-3">Buy Premium</button>
+                        </div>
+                        <div id="idk6" class="mt-3 d-flex flex-column" style="display:none;">
+                            <p>You are now a premium user</p>
+                            <div class="d-flex flex-wrap">
+                                <button id="idk7" class="btn btn-info mr-2 mb-2">Show Leaderboard</button>
+                                <input type="month" id="idk8" class="form-control mr-2 mb-2" style="max-width: 150px;">
+                                <button onclick="report()" id="idk9" class="btn btn-info mb-2">Show Report</button>
+                            </div>
+                        </div>
+                <hr>
+                <div>
+                    <div class="table-responsive">
+                        <table id="table-expense" class="table table-striped table-responsive" >
+                            <thead class="thead-dark table-responsive">
+                                <tr >
+                                    <th colspan="4" class="text-center">Expenses</th> <!-- Updated heading -->
+                                </tr>
+                                <tr >
+                                    <th class="text-center">Category</th>
+                                    <th class="text-center">Description</th>
+                                    <th class="text-center" >Amount</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-responsive" >
+                                <!-- Table body will be dynamically populated -->
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="paginate-expense"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row justify-content-end">
+                                    <label for="idk11" class="col-md-6 col-form-label text-md-right">Items Per Page:</label>
+                                    <div class="col-md-6">
+                                        <select name="pages" id="idk11" class="form-control" onchange="itemsPerPage()">
+                                            <option value="2">2</option>
+                                            <option value="4">4</option>
+                                            <option value="6">6</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <table id="table-income" class="table table-striped table-responsive">
+                            <thead class="thead-dark table-responsive">
+                                <tr>
+                                    <th colspan="4" class="text-center">Incomes</th> <!-- Updated heading -->
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Category</th>
+                                    <th class="text-center">Description</th>
+                                    <th class="text-center">Amount</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-responsive">
+                                <!-- Table body will be dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <table id="table-downloads" class="table table-striped table-responsive">
+                        <thead class="thead-dark table-responsive">
+                            <tr>
+                                <th colspan="2" class="text-center">Downloads History</th> <!-- Updated heading -->
+                            </tr>
+                            <tr>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">URL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-responsive">
+                            <!-- Table body will be dynamically populated -->
+                        </tbody>
+                    </table>
+                    <div id="idk10"  class="mt-3" style="display: none;">
+                        <h2>Leader Board</h2>
+                        <ul id="list-items2" class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="../config.js"></script>
+    <script src="expense.js"></script>
+</body>
+</html>

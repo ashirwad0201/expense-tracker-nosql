@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Document</title>
+    <style>
+        form{
+            border: groove;
+            border-radius: 20px;
+            border-width: 10px;
+        }
+        h1{
+            text-align:center ;
+            color: #ffa500;
+        }
+        label{
+            margin-left: 1%;
+        }  
+        .text-center{
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }   
+        .download-button {
+            margin-left: 90%;
+            width: 60px; 
+            height: 60px;
+            border-radius: 50%;
+            background-color: #021830;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+        }
+        table tr:first-child td{
+            background-color: rgb(32, 97, 132);
+            color: white;
+        }
+        table tr:nth-child(odd) {
+            background-color: #c4bfbf; /* Set the grey background color for odd rows */
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2 class="text-center">Day to Day Expenses</h2>
+        <p id="date">test</p>
+        <h2 id="year" class="text-center">test</h2>
+        <h3 id="month-year" class="text-center">test</h3>
+        <br>
+        <table id="monthly" width="1000" border="4" cellspacing="0" align="center">
+            <tr>
+                <td align="center" height="50" width="200" ><b>Date</b></td>
+                <td align="center" height="50" width="200" ><b>Description</b></td>
+                <td align="center" height="50" width="200" ><b>Category</b></td>
+                <td align="center" height="50" width="200" ><b>Income</b></td>
+                <td align="center" height="50" width="200" ><b>Expense</b></td>
+            </tr>
+        </table>
+        <br>
+        <h3 class="text-center">Yearly Report</h3>
+        <br>
+        <table id="yearly" width="1000" border="4" cellspacing="0" align="center">
+            <tr>
+                <td align="center" height="50" width="200" ><b>Month</b></td>
+                <td align="center" height="50" width="200" ><b>Income</b></td>
+                <td align="center" height="50" width="200" ><b>Expense</b></td>
+                <td align="center" height="50" width="200" ><b>Savings</b></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button id="download" class="download-button" onclick="download(event)">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="../config.js"></script>
+    <script src="premium.js"></script>
+</body>
+</html>

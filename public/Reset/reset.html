@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+    <title>Document</title>
+    <style>
+        /* Custom styles can be added here */
+        body {
+            background-color: #f8f9fa; /* Set a light background color */
+            padding-top: 50px; /* Add some space from the top */
+        }
+        
+        .form-container {
+            background-color: #ffffff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Add padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+
+        h1 {
+            text-align: center;
+            color: #0f04ac; /* Set title color */
+        }
+
+        label {
+            margin-left: 1%;
+        }
+
+        .buttonStyle {
+            transition-duration: 0.4s;
+        }
+
+        .buttonStyle:hover {
+            background-color: #020292; 
+            color: #87c5e9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <form id="form" action="#">
+                        <h1>Reset Password</h1>
+                        <div class="form-group">
+                            <input type="email" name="email" id="idr1" class="form-control" placeholder="Email" required>
+                        </div>
+                        <button class="btn btn-primary font-weight-bold buttonStyle btn-block" onclick="onReset(event)">Reset Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="../config.js"></script>
+    <script src="reset.js"></script>
+</body>
+</html>
