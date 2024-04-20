@@ -9,7 +9,6 @@ router.get('/get-user/:email', adminController.getUser);
 router.post('/insert-user', adminController.insertUser);
 router.post('/login-user', adminController.loginUser);
 router.post('/ispremium',userAuthentication.authenticate,adminController.isPremiumUser);
-// router.put('/update-cricket/:id',adminController.updateCricket);
 
 
 module.exports = router;

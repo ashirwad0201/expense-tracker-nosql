@@ -12,7 +12,7 @@ function onSignUp(e){
     if(username_!='' && email_!='' && password_!=''){
         axios.get(`${API_ENDPOINT}get-user/${email_}`)
         .then(result=>{
-            if(result.data==""){
+            if(result.data==null || result.data==""){
                 console.log("hi! i am in")
                 axios.post(`${API_ENDPOINT}insert-user`,myObj)
                 .then((res)=>{

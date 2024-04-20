@@ -7,9 +7,7 @@ const S3Service=require('../services/S3services')
 
 exports.getLeaderBoard=async (req,res,next)=>{
     try{
-        const leaderboard=await Userdetail.findAll({
-            attributes: ['username','totalexpense']
-        })
+        const leaderboard=await Userdetail.find().select('username totalexpense')
         res.status(200).json(leaderboard)
     }catch(err){
         console.log(err);

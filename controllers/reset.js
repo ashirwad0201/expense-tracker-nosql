@@ -17,7 +17,7 @@ exports.forgotPassword=async (req,res,next)=>{
         const uuid=uuidv4();
         const hostname=(req.hostname==='localhost'?'localhost:5000':req.hostname)
         const url=`http://${hostname}/password/resetpassword/`+uuid;
-        const user=await Userdetail.findOne({ where : { email: userEmail}});
+        const user=await Userdetail.findOne({email: userEmail});
         console.log(user)
         await user.createForgotPasswordRequest({id: uuid,isactive: true});
         console.log(url)
@@ -78,7 +78,7 @@ exports.newPassword=async (req,res,next)=>{
             myObj.password=hash;
             const request=await FPR.findByPk(myObj.uuid);
             if(request.isactive){
-                const user=await Userdetail.findByPk(request.userdetailId);
+                const user=await Userdetail.findById(request.userdetailId);
                 user.password=myObj.password;
                 await user.save();
                 request.isactive=false;
