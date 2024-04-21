@@ -13,12 +13,6 @@ const expenseRoutes = require('./routes/expense');
 const purchaseRoutes = require('./routes/purchase');
 const premiumRoutes = require('./routes/premium');
 const resetRoutes = require('./routes/reset');
-// const UserDetail = require('./models/userdetail');
-// const Expense = require('./models/expense')
-// const Income = require('./models/income')
-// const Order=require('./models/order')
-// const Download=require('./models/download')
-// const FPR=require('./models/forgotPasswordRequest');
 const path = require('path');
 const app = express();
 const accessLogStream=fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'});
@@ -31,7 +25,7 @@ app.use(bodyParser.json({ extended: false }));
 
 app.use(adminRoutes);
 app.use(expenseRoutes);
-// app.use(purchaseRoutes);
+app.use(purchaseRoutes);
 app.use('/premium',premiumRoutes);
 app.use('/password',resetRoutes);
 app.use((req,res)=>{

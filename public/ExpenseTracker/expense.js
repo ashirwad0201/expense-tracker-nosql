@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     .catch((err)=>console.log(err));
     document.getElementById('idk11').value=localStorage.getItem('itemsPerPage')||2;
     getExpense(1);
-    //getSalary();
+    getSalary();
     //getDownload();
     })
 
@@ -250,7 +250,7 @@ document.getElementById('idk5').onclick = async function(e){
     var options=
     {
         "key": response.data.key_id,
-        "order_id": response.data.order._id,
+        "order_id": response.data.order.id,
         "handler": async function(response){
             await axios.post(`${API_ENDPOINT}updatetransactionstatus`,{
                 order_id: options.order_id,
