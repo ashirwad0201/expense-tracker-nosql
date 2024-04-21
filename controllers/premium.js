@@ -113,13 +113,16 @@ exports.downloadexpense = async(req,res,next)=>{
 
         const Obj1= req.query;
         const stringifiedExpenses= JSON.stringify(Obj1);
-        const userId = req.user.id;
+        const userId = req.user._id;
         const currentDate = new Date();
         const currentDateTime = currentDate.toLocaleString();
         console.log(currentDateTime)
         const filename=`Expense${userId}/${currentDateTime}.txt`;
         const fileUrl= await S3Service.uploadToS3(stringifiedExpenses, filename);
-        await req.user.createDownload({name:filename, url:fileUrl})
+
+        req.user.downloads=[...req.user.downloads,{name:filename, url:fileUrl}];
+        await req.user.save();
+
         res.status(200).json({fileUrl, success:true})
     }
     catch(err){
@@ -130,7 +133,7 @@ exports.downloadexpense = async(req,res,next)=>{
 
 exports.getdownload = async(req,res,next)=>{
     try{
-        const downloads=await req.user.getDownloads();
+        const downloads=req.user.downloads;
         res.status(200).json(downloads)
     }
     catch(err){

@@ -80,7 +80,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('idk11').value=localStorage.getItem('itemsPerPage')||2;
     getExpense(1);
     getSalary();
-    //getDownload();
+    getDownload();
     })
 
 function tracker(){

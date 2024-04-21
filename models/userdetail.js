@@ -57,7 +57,13 @@ const userdetailSchema = new Schema({
     totalincome: {
       type: Number,
       default: 0
-    }
+    },
+    downloads: [
+      {
+        name: { type: String, required: true },
+        url: { type: String, required: true }        
+      }
+    ]
 })
 
 module.exports = mongoose.model('Userdetail', userdetailSchema);
