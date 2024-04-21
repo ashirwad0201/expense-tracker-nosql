@@ -30,9 +30,9 @@ app.use(morgan('combined',{stream: accessLogStream}));
 app.use(bodyParser.json({ extended: false }));
 
 app.use(adminRoutes);
-// app.use(expenseRoutes);
+app.use(expenseRoutes);
 // app.use(purchaseRoutes);
-// app.use('/premium',premiumRoutes);
+app.use('/premium',premiumRoutes);
 app.use('/password',resetRoutes);
 app.use((req,res)=>{
     const hostname=(req.hostname==='localhost'?'localhost:5000':req.hostname)

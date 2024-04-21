@@ -23,6 +23,8 @@ function getExpense(page){
     axios.get(`${API_ENDPOINT}get-expense/?page=${page}&itemsPerPage=${localStorage.getItem('itemsPerPage')}`,{headers:{"authorization": token}})
     .then(
         (response)=>{
+            console.log('------------------------')
+            console.log(response)
             for(var i=0;i<response.data.expenses.length;i++){
                 showData2(response.data.expenses[i]);
             }
@@ -77,8 +79,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     .catch((err)=>console.log(err));
     document.getElementById('idk11').value=localStorage.getItem('itemsPerPage')||2;
     getExpense(1);
-    getSalary();
-    getDownload();
+    //getSalary();
+    //getDownload();
     })
 
 function tracker(){
@@ -171,7 +173,7 @@ function showData2(myObj){
     row.appendChild(priceCell);
     row.appendChild(actionCell);
 
-    row.setAttribute('item-id',myObj.id);
+    row.setAttribute('item-id',myObj._id);
     row.setAttribute('item-price',myObj.price);
     row.setAttribute('item-category',myObj.category);
 
@@ -248,7 +250,7 @@ document.getElementById('idk5').onclick = async function(e){
     var options=
     {
         "key": response.data.key_id,
-        "order_id": response.data.order.id,
+        "order_id": response.data.order._id,
         "handler": async function(response){
             await axios.post(`${API_ENDPOINT}updatetransactionstatus`,{
                 order_id: options.order_id,
