@@ -49,6 +49,9 @@ const expenseSchema = new Schema({
       ref: 'Userdetail',
       required: true
     }
+}, 
+{
+  timestamps: true 
 })
 
 module.exports = mongoose.model('Expense', expenseSchema);

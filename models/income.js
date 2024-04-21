@@ -48,6 +48,9 @@ const incomeSchema = new Schema({
       ref: 'Userdetail',
       required: true
     }
+}, 
+{
+  timestamps: true 
 })
 
 module.exports = mongoose.model('Income', incomeSchema);

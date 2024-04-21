@@ -30,20 +30,16 @@ exports.getMonthlyReport=async (req,res,next)=>{
         console.log(endDate)
         console.log(new Date(year,month,1))
         console.log(userId)
-        const expenses=await Expense.findAll({
-            where:{
-                userdetailId: userId,
-                createdAt: {[Sequelize.Op.between]: [startDate, endDate]},
-            },
-            order:[['createdAt','ASC']],
-        });
-        const incomes=await Income.findAll({
-            where:{
-                userdetailId: userId,
-                createdAt: {[Sequelize.Op.between]: [startDate, endDate]},
-            },
-            order:[['createdAt','ASC']],
-        });
+        const expenses = await Expense.find({
+            userId: userId,
+            createdAt: { $gte: startDate, $lte: endDate }
+        }).sort({ createdAt: 'asc' });
+
+        const incomes = await Income.find({
+            userId: userId,
+            createdAt: { $gte: startDate, $lte: endDate }
+        }).sort({ createdAt: 'asc' });
+
         let records=[...expenses,...incomes]
         records.sort((a,b)=>a.createdAt-b.createdAt);
         const response=records.map(record=>({
@@ -65,21 +61,16 @@ exports.getYearlyReport=async (req,res,next)=>{
     try{
         const Obj=req.query;
         const year=Obj.year;
-        const month=Obj.month;
         const startDate=new Date(year,0,1);
         const endDate=new Date(year,11,31);
         const userId=req.user.id;
-        const expenses=await Expense.findAll({
-            where:{
-                userdetailId: userId,
-                createdAt: {[Sequelize.Op.between]: [startDate, endDate]},                
-            }
+        const expenses = await Expense.find({
+            userId: userId,
+            createdAt: { $gte: startDate, $lte: endDate }
         });
-        const incomes=await Income.findAll({
-            where:{
-                userdetailId: userId,
-                createdAt: {[Sequelize.Op.between]: [startDate, endDate]},                
-            }
+        const incomes = await Income.find({
+            userId: userId,
+            createdAt: { $gte: startDate, $lte: endDate }
         });
         const yearReport=Array.from({length:12},()=>({
             month: 0,
