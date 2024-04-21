@@ -8,7 +8,7 @@ function onReset(e){
         axios.post(`${API_ENDPOINT}password/forgotpassword`,myObj)
         .then((res)=>{
             console.log(res)
-            alert("Thank you! Please check your email inbox for further instruction.")
+            alert(res.data)
             //localStorage.setItem('token',res.data.token)
             //window.location.href="../ExpenseTracker/expense.html"
         })

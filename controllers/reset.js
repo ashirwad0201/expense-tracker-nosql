@@ -9,6 +9,7 @@ const bcrypt=require('bcrypt');
 exports.forgotPassword=async (req,res,next)=>{
     try{
         const userEmail=req.body.email;
+        console.log("hi")
         const client=Sib.ApiClient.instance
         const apiKey=client.authentications['api-key']
         console.log('API Key:', process.env.API_KEY);
@@ -18,8 +19,17 @@ exports.forgotPassword=async (req,res,next)=>{
         const hostname=(req.hostname==='localhost'?'localhost:5000':req.hostname)
         const url=`http://${hostname}/password/resetpassword/`+uuid;
         const user=await Userdetail.findOne({email: userEmail});
+        console.log('------------------')
         console.log(user)
-        await user.createForgotPasswordRequest({id: uuid,isactive: true});
+        if(user==null){
+            return res.json("User not found")
+        }
+        const request=new FPR({
+            _id: uuid,
+            isactive: true,
+            userId: user
+        })
+        await request.save();
         console.log(url)
         const sender={
             email: userEmail,
@@ -38,7 +48,7 @@ exports.forgotPassword=async (req,res,next)=>{
                 reseturl: url,
             }
         })
-        res.json();
+        res.json("Thank you! Please check your email inbox for further instruction.");
     }catch(err){
         console.log(err);
         res.status(500).json(err)
@@ -49,15 +59,15 @@ exports.resetPassword=async (req,res,next)=>{
     try{
         const uid=req.params.uid;
         console.log(uid)
-        const request=await FPR.findByPk(uid);
+        const request=await FPR.findById(uid);
         console.log(request)
         if(request){
             if(request.isactive){
-                const hostname=(req.hostname==='localhost'?'localhost:5500':req.hostname)
+                const hostname=(req.hostname==='localhost'?'localhost:5000':req.hostname)
                 res.redirect(`http://${hostname}/Reset/newpassword.html?uuid=${uid}`)
             }
             else{
-                throw new Error("Reset Link expired")
+                return res.send('<h1>Reset Link expired</h1>')
             }
         }
         else{
@@ -76,9 +86,9 @@ exports.newPassword=async (req,res,next)=>{
         bcrypt.hash(myObj.password,saltrounds,async (err,hash)=>{
           if(!err){
             myObj.password=hash;
-            const request=await FPR.findByPk(myObj.uuid);
+            const request=await FPR.findById(myObj.uuid);
             if(request.isactive){
-                const user=await Userdetail.findById(request.userdetailId);
+                const user=await Userdetail.findById(request.userId);
                 user.password=myObj.password;
                 await user.save();
                 request.isactive=false;

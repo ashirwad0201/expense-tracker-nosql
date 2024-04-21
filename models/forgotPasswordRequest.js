@@ -13,3 +13,25 @@
 
 
 // module.exports = FPR;
+
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+
+const forgotPasswordRequestSchema = new Schema({
+    _id: {
+      type: String,
+      required: true
+    },
+    isactive: {
+      type: Boolean,
+      default: false
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Userdetail',
+      required: true
+    }
+})
+
+module.exports = mongoose.model('ForgotPasswordRequest', forgotPasswordRequestSchema);

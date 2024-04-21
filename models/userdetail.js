@@ -57,7 +57,7 @@ const userdetailSchema = new Schema({
     totalincome: {
       type: Number,
       default: 0
-    } 
+    }
 })
 
 module.exports = mongoose.model('Userdetail', userdetailSchema);
